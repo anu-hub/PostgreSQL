@@ -1,4 +1,4 @@
-# Learning Objective:
+# Creating a simple database with PostgreSQL
 
 This is a simple project to demonstrate how to setup a simple datatbase in postgreSQL, extract data from JSON files, transform the data and load the data into the anaytical tables. 
 
