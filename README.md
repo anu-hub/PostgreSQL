@@ -1,42 +1,31 @@
-# Project Summary:
+# Learning Objective:
 
-Sparkify wants to analyze the data they've been collecting on songs and user activity on their new music streaming app.
-This involves creation of new database, creation of fact & dimention tables. Reading and processing song & log json files.
+This is a simple project to demonstrate how to setup a simple datatbase in postgreSQL, extract data from JSON files, transform the data and load the data into the anaytical tables. 
+
+## Data Analysis
+Let us create a simple datatbase for a fictitious music streaming company **Sparkify** whose requirement is to analyze the data they've been collecting on songs and user activity on their new music streaming app. To help Sparkify analyze their data, we will create a database and then fact and dimension tables. We will then read and process their log files and create a dashboard to summarize the data.
 
 ## Data Modeling: 
+* Fact Table: songplays (songplay_id pk)
+  Fact table is loaded from the log files based on the artist and song information from the songs collection data. 
+  Artist_Id & Song_Id - These columns are populated from songs and artists dimention table, based on the song title, song duration &  
+   artist name.
+  Start_Time,User_Id,Level,Session_ID,Location & user_agent - Log files
 
-Database: Sparkify
+* Dimension Tables: users(user_id pk), songs(song_id pk), artists(artist_id pk), time(start_time pk)
+  User & Time Dimenensions are populated from the log files.
+  Songs & Artist dimentions are populated from the songs collection files.
 
-Fact Table: songplays (songplay_id pk)
-Fact table is loaded from the log files based on the artist and song information from the songs collection data. 
+## ER Diagram
+![ER_Diagram](https://github.com/anu-hub/PostgreSQL/blob/master/images/ER_Diagram.jpg)
 
-Artist_Id & Song_Id - These columns are populated from songs and artists dimention table, based on the song title, song duration & artist name.
-Start_Time,User_Id,Level,Session_ID,Location & user_agent - Log files
+## Extract Transform Load(ETL)
+We will use three scripts for the ETL process
+  1. ```sql_queries.py```: This file contains the queries which can be imported into ```etl.py``` and ```create_table.py```.
+  2. ```create_tables.py```: This script will create our database and the tables.
+  3. ```etl.py``` will read the JSON logs, transform the data and load into the tables in the database. 
 
-
-Dimension Tables: users(user_id pk), songs(song_id pk), artists(artist_id pk), time(start_time pk)
-
-User & Time Dimenensions are populated from the log files.
-Songs & Artist dimentions are populated from the songs collection files.
-
-ER Diagram - Please refre to the ER_Diagram picture.
-
-
-ETL: etl.py script 
-
-We are using three scripts for the ETL process (inclusing the etl.py)
-sql_queries: table creation, table drop, insert & select query formats are storted in this script, which is being imported in the etl.py scripy and create_table.py script.
-create_tables.py : This script should be executed before the etl script, it will create the database and the tables (fact & dimension).
-
-ETL script is reading the song & log json files from the data/song_data & data/log_data file path and processing the data before loading into the tables. 
-
-
-## Steps to execute the scripts:
-
-1. Execte create_tables.py script - This creates the database & tables, also drops the tables if exists
-2. sql_queries: No action required - This script is imported in create_table & etl script.
-3. Execute etl.py script  - This will read, transform and insert the data into the tables
-*assert is used for song & artist insert to verify the record count in the file, assuming we have 1 record per file. Otherwise we will get assertion error exception.
-*NULL values for the USER_ID column in the USERS table has been handeled in the script. USER_ID column doesn't have NULL values.
-*After the ETL process only one song_id & artist_id is matching with the song collection data provided. Refre to the dashboard for the queries.
-4. Run Dashboard.ipynb to generate the report on the data loaded. 
+## Running the project:
+  1. Execute ```create_tables.py``` to create the database & tables
+  2. Execute ```etl.py``` to read, transform and load the data into the tables
+  3. In jupyter notebook run ```Dashboard.ipynb``` to generate a report with insights into our data. 
