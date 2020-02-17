@@ -1,9 +1,9 @@
-Project Summary:
+# Project Summary:
 
 Sparkify wants to analyze the data they've been collecting on songs and user activity on their new music streaming app.
 This involves creation of new database, creation of fact & dimention tables. Reading and processing song & log json files.
 
-Data Modeling: 
+## Data Modeling: 
 
 Database: Sparkify
 
@@ -31,19 +31,12 @@ create_tables.py : This script should be executed before the etl script, it will
 ETL script is reading the song & log json files from the data/song_data & data/log_data file path and processing the data before loading into the tables. 
 
 
-Steps to execute the scripts:
+## Steps to execute the scripts:
 
 1. Execte create_tables.py script - This creates the database & tables, also drops the tables if exists
-
 2. sql_queries: No action required - This script is imported in create_table & etl script.
-*This script has been modifies as per the review comments:
-1. Added primary keys in all the tables
-2. Added ON CONFLICT in the insert statements
-
-2. Execute etl.py script  - This will read, transform and insert the data into the tables
+3. Execute etl.py script  - This will read, transform and insert the data into the tables
 *assert is used for song & artist insert to verify the record count in the file, assuming we have 1 record per file. Otherwise we will get assertion error exception.
 *NULL values for the USER_ID column in the USERS table has been handeled in the script. USER_ID column doesn't have NULL values.
 *After the ETL process only one song_id & artist_id is matching with the song collection data provided. Refre to the dashboard for the queries.
-
-3. Run Dashboard.ipynb to generate the report on the data loaded. 
-*Analayis on sparkify data.
+4. Run Dashboard.ipynb to generate the report on the data loaded. 
